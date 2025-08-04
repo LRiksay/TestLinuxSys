@@ -47,6 +47,21 @@ echo "name user ne mozhet bit pustim"
 fi
 }
 
+function archive {
+read -p "kakoy katalog you want archive: " archia
+if [[ -d "$archia" ]]
+then
+sleep 1
+echo "directoria $archia est"
+echo "vvedi directory v kotoruy nuzhno save i nazvanie faila po primeru /mnt/backup/home.tar"
+read -p "v kakuyi directoriy ti choches save archive? " save
+tar -czvf "$save" "$archia"
+else
+echo "eto ne directoria"
+fi
+}
+
+
 function funcA {
 case "$pingo" in
 1)
@@ -55,6 +70,8 @@ pinuj
 2)
 user
 ;;
+3)
+archive
 esac
 }
 
@@ -64,7 +81,4 @@ echo "select this if you want say good: 3) "
 echo "select this if you want install isc-dhcp-server and repair setings: 4) "
 read -p "viberite nuzhny parametr: " pingo
 funcA
-
-
-
 
