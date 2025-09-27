@@ -1,0 +1,26 @@
+[STAGING_SERVERS_WEB]
+linuxl ansible_host=192.168.150.137 owner=Rs
+linuxt ansible_host=192.168.150.155 owner=Rk
+linuxb ansible_host=192.168.150.136 owner=Rl
+linuxi ansible_host=192.168.150.156 owner=Ra
+[PROD_SERVERS_WEB]
+windows2016 ansible_host=192.168.150.150
+
+[PROD_SERVERS_WEB:vars]
+ansible_user=ARicko
+#ansible_password=
+ansible_port=5986
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+
+#[STAGING_SERVERS_DB]
+#10.10.1.1
+#[PROD_SERVERS_DB]
+#11.11.2.2
+#[ALL_SERVERS_DB:children]
+#staging_servers_DB
+#prod_servers_DB
+#[ALL_SERVERS_DB:VARS]
+#db_end=xx5
+#owner=varkp
+#location="Huston, TX"

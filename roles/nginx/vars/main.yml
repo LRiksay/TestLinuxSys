@@ -1,0 +1,9 @@
+#SPDX-License-Identifier: MIT-0
+---
+# vars file for nginx
+
+#  vars:
+ #   searchy: /roles/ansible/MyWebSite2
+    destiny: /var/www/html
+    destiny2: /etc/nginx
+    domain_name: localhost

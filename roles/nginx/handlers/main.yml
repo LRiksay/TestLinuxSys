@@ -1,0 +1,11 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for nginx
+
+
+  - name: this is was copy restart service
+    service: name=nginx state=restarted
+  - name: this metka
+    copy: src={{ item }} dest={{ destiny2 }}
+    loop:
+      - "nginx.conf"

@@ -1,0 +1,7 @@
+---
+ansible_host: 192.168.150.150
+ansible_user: ARicko
+#ansible_password:
+ansible_port: 5986
+ansible_connection: winrm
+ansible_winrm_server_cert_validation: ignore

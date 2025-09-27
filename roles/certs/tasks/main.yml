@@ -1,0 +1,10 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for certs
+#    - name: Generate certificate
+        community.crypto.openssl_certificate:
+          path: /etc/nginx/ssl/{{ domain_name }}.crt
+          privatekey_path: /etc/nginx/ssl/{{ domain_name }}.key
+          provider: selfsigned
+          common_name: "{{ domain_name }}"
+          days: 365

@@ -1,0 +1,15 @@
+---
+- name: ansible playbook wrap wrap
+  hosts: all
+  become: yes
+
+#  vars:
+#    searchy: /root/ansible/MyWebSite2
+#    destiny: /var/www/html
+#    destiny2: /etc/nginx
+  tasks:
+  - name: name of truth, what truth
+    debug: var=ansible_os_family
+  roles:
+    - nginx
+#    - certs
