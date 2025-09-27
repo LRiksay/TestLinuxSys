@@ -6,6 +6,7 @@
     debug: var=ansible_os_family
 
   - block: #Debian block install nginx and starting service
+
       - name: installing and nginx
         apt: name=nginx state=latest
 
