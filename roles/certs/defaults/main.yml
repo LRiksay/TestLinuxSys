@@ -1,3 +1,10 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for certs
+domain_name: sitewrap
+cert_path: /etc/nginx/ssl
+key_file: "{{ cert_path }}/{{domain_name }}.key"
+crt_file: "{{ cert_path }}/{{ domain_name }}.crt"
+days_valid: 365
+
+

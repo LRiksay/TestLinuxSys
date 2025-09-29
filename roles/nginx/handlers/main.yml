@@ -2,10 +2,17 @@
 ---
 # handlers file for nginx
 
+# Хэндлер для перезапуска nginx, если конфиг изменился.
 
-  - name: this is was copy restart service
-    service: name=nginx state=restarted
-  - name: this metka
-    copy: src={{ item }} dest={{ destiny2 }}
-    loop:
-      - "nginx.conf"
+   - name: Перезапустим nginx
+     ansible.builtin.service:
+       name: nginx
+       state: restarted
+
+
+#  - name: this is was copy restart service
+#   service: name=nginx state=restarted
+#  - name: this metka
+#    copy: src={{ item }} dest={{ destiny2 }}
+#    loop:
+#      - "nginx.conf"

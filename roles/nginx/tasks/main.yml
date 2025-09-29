@@ -1,3 +1,4 @@
+
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for nginx
@@ -7,44 +8,26 @@
 
   - block: #Debian block install nginx and starting service
 
-      - name: installing and nginx
-        apt: name=nginx state=latest
+      - name: installing nginx
+        ansible.builtin.package:
+          name: nginx
+          state: latest
 
-      - name: service started nginx
-        service: name=nginx state=started enabled=yes
-        when: ansible_os_family == "Debian"
+      - name: create ssl directory
+        ansible.builtin.file:
+          path: /etc/nginx/ssl
+          state: directory
+          mode: '0755'
 
-      - name: generate my index.html to index.j2
-        template: src=index.j2 dest={{ destiny }}/index.html
-      - name: copy my files and index.html
-        copy: src={{ item }} dest={{ destiny }} mode=0555
-        loop:
-          - "images1.jpeg"
-          - "images2.jpeg"
-          - "images3.jpeg"
-        notify: this is was copy restart service
+      - name: jinja template nginx.conf.j2
+        ansible.builtin.template:
+          src: nginx.conf.j2
+          dest: /etc/nginx/nginx.conf
+          mode: '0655'
+        notify: Перезапустим nginx
 
-      - name: nginx config
-        shell: rm -rf /etc/nginx/nginx.conf
-
-      - name: copying
-        copy: src={{ item }} dest={{ destiny2 }} mode=0777
-        loop:
-          - "bsh.sh"
-      - name: script enabled
-        shell: cd /etc/nginx && ./bsh.sh
-        notify: this metka
-
-#      - name: Ensure /etc/nginx/ssl
-#        file:
-#          path: /etc/nginx/ssl
-#          state: directory
-#          mode: "0755"
-
-     # - name: banx
-       # community.crypto.x509_certificate:
-         # path: /etc/nginx/ssl/{{ domain_name }}.crt
-         # privatekey_path: /etc/nginx/ssl/{{ domain_name }}.key
-         # provider: selfsigned
-         # common_name: "{{ domain_name }}"
-         # days: 365
+      - name: Убедимся, что nginx запущен
+        ansible.builtin.service:
+          name: nginx
+          state: started
+          enabled: true
