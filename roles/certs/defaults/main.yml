@@ -1,10 +1,21 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for certs
-domain_name: sitewrap
-cert_path: /etc/nginx/ssl
-key_file: "{{ cert_path }}/{{domain_name }}.key"
-crt_file: "{{ cert_path }}/{{ domain_name }}.crt"
-days_valid: 365
+#domain_name: sitewrap
+#cert_path: /etc/nginx/ssl
+#key_file: "{{ cert_path }}/{{domain_name }}.key"
+#crt_file: "{{ cert_path }}/{{ domain_name }}.crt"
+#days_valid: 365
+certs_dir: /etc/ssl/certs       #Путь куда сохранится сертификат
+private_dir: /etc/ssl/private   #Путь куда сохранится приватный ключ
+cert_common_name: "example.local"   #CN common-name сертификата, данные
+cert_days: "+365d"  #Кол-во дней действия сертификата
+cert_key: "{{ private_dir }}/nginx-selfsigned.key" #Имя файла и путь приватного ключа для сертификата
+cert_csr: "{{ certs_dir }}/nginx-selfsigned.csr" #Имя файла и путь заявки на сертификат
+cert_crt: "{{ certs_dir }}/nginx-selfsigned.crt" #Путь и имя файла сертификата
+
+#Практический смысл например в последующем можно имзенить название и CN ключа, сертификата на другой сервер.
+#например cert_common_name: myserver.com
+#cert_crt: /etc/ssl/certs/mirta.crt - изменили название сертификата
 
 

@@ -4,10 +4,10 @@
 
 # Хэндлер для перезапуска nginx, если конфиг изменился.
 
-   - name: Перезапустим nginx
-     ansible.builtin.service:
-       name: nginx
-       state: restarted
+  - name: Перезапустим nginx
+    ansible.builtin.service:
+      name: nginx
+      state: restarted
 
 
 #  - name: this is was copy restart service

@@ -4,12 +4,12 @@
   become: yes
 
 #  vars:
-#    searchy: /root/ansible/MyWebSite2
-#    destiny: /var/www/html
+#    crt_file: /etc/nginx/ssl/{{ domian_name }}.crt
+#    key_file: /etc/nginx/ssl/{{ domain_name }}.key
 #    destiny2: /etc/nginx
-  tasks:
-  - name: name of truth, what truth
-    debug: var=ansible_os_family
+# - tasks:
+#  - name: name of truth, what truth
+#    debug: var=ansible_os_family
   roles:
     - nginx
-#    - certs
+    - certs

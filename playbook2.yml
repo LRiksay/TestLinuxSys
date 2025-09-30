@@ -1,0 +1,39 @@
+---
+- name: Тест плейбука с современными модулями
+  hosts: all
+  become: yes
+
+  vars:
+    srci: /root/ansible/MyWebSite2
+    desti: /home/lessons
+    nginx_port: 443
+    domain_name: sites.com
+
+  tasks:
+  - name: имя таска просто имя таска
+    apt: name=stress state=latest
+     # name: nginx
+     # state: latest
+
+  - name: добавление новой директории
+    ansible.builtin.file:
+      path: /etc/nginx/ssl
+      state: directory
+
+  - name: Тэмплэйт детка
+    ansible.builtin.template:
+      src: /root/ansible/MyWebSite2/nginx.conf.j2
+      dest: /etc/nginx/nginx.conf
+    notify: person
+
+  - name: запуск cервиса
+    ansible.builtin.service:
+      name: stress
+      state: started
+      enabled: true
+
+  handlers:
+  - name: person
+    ansible.builtin.service:
+      name: stress
+      state: restarted

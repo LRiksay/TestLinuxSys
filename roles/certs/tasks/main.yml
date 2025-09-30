@@ -1,24 +1,26 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # tasks file for certs
-    - name: Создание директории для сертификатов
-        file:
-          path: "{{ cert_path }}"
-          state: directory
-          owner: root
-          group: root
-          mode: '0755'
+  - name: Создание директории для сертификатов
+    community.crypto.openssl_privatekey:
+      path: "{{ cert_key }}"  # 
+      size: 2048             #
+      type: RSA              #
+      mode: 0600             #
+    tags: certs              #
 
-    - name: Сгенерировать приватный ключ
-      community.crypto.openssl_privatekey:
-        path: "{{ key_file }}"
-        size: 2048
-        type: RSA
+  - name: Сгенерировать приватный ключ
+    community.crypto.openssl_csr:
+      path: "{{ cert_csr }}"       #
+      privatekey_path: "{{ cert_key }}" #
+      common_name: "{{ cert_common_name }}" #
+    tags: certs #
 
-    - name: Сгенерировать самоподписанный сертификат
-      community.crypto.openssl_certificate:
-        path: "{{ crt_file }}"
-        privatekey_path: "{{ key_file }}"
-        provider: selfsigned
-        common_name: "{{ domain_name }}"
-        days: "{{ days_valid }}"
+  - name: Сгенерировать самоподписанный сертификат
+    community.crypto.x509_certificate:
+      path: "{{ cert_crt }}"  #
+      csr_path: "{{ cert_csr }}"   #
+      privatekey_path: "{{ cert_key }}" #
+      provider: selfsigned  #
+      selfsigned_not_after: "{{ cert_days }}" #
+    tags: certs
