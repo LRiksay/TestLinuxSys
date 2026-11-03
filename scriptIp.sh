@@ -19,7 +19,7 @@ fi
 
 done < "$files"
 else
-echo "файл не найден!"
+echo "файл не найден"
 fi
 
 
