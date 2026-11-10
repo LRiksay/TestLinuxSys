@@ -1,0 +1,21 @@
+name: TestingAction
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-images:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build the docker image
+        run: docker build -t my-test-image:v1 .
+
+      - name: Test the image (Run container)
+        run: |
+          docker run -d --name test-container my-test-image:v1
+          docker ps
+
