@@ -30,7 +30,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           # Собираем образ из Dockerfile в текущей папке (точка в конце) и даем ему имя
-          docker build -t iriksay/basics:latest .
+          docker build -t lriksay/basics:latest .
           
           # Отправляем готовый образ в наш репозиторий на Docker Hub
-          docker push iriksay/basics:latest
+          docker push lriksay/basics:latest
