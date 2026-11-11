@@ -31,6 +31,25 @@ jobs:
         run: |
           # Собираем образ из Dockerfile в текущей папке (точка в конце) и даем ему имя
           docker build -t lriksay/basics:latest .
+
+            # Отправляем готовый образ в наш репозиторий на Docker Hub docker push lriksay/basics:latest
           
-          # Отправляем готовый образ в наш репозиторий на Docker Hub
-          docker push lriksay/basics:latest
+     # ВТОРОЙ JOB: Деплой на сервер
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push # Ждем, пока завершится первый job (сборка)
+    
+    steps:
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # Команды, которые выполнит робот на твоем сервере:
+          script: |
+            cd ~/myapp
+            docker compose pull
+            docker compose up -d
+          
+        
