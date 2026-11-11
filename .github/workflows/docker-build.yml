@@ -48,7 +48,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           # Команды, которые выполнит робот на твоем сервере:
           script: |
-            cd ~/myapp
+            cd /home/lessons/app
             docker compose pull
             docker compose up -d
           
